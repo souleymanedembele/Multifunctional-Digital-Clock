@@ -6,7 +6,7 @@
 
 #define SYSCTL_RCGC2_R (*((volatile unsigned long *)0x400FE108))
 #define GPIO_PORTA_LOCK_R (*((volatile unsigned long *)0x40004520))
-
+#define SYSCTL_RCGCGPIO_R (*((volatile unsigned long *)0x400FE608))
 #define UART0_DR_R (*((volatile unsigned long *)0x4000C000))
 #define UART0_FR_R (*((volatile unsigned long *)0x4000C018))
 #define SYSCTL_RCGCUART_R (*((volatile uint32_t *)0x400FE618))
@@ -21,9 +21,9 @@
 #define GPIO_PORTA_AFSEL_R (*((volatile uint32_t *)0x40004420))
 #define GPIO_PORTA_DEN_R (*((volatile uint32_t *)0x4000451C))
 
-void Init_UART_0(uint32_t baudRate);
+void Init_UART_0(void);
 char UART_InChar(void);
 void UART_OutChar(char data);
-void printString(char *s);
-
+void printString(const char *str);
+void Delay(void);
 #endif
