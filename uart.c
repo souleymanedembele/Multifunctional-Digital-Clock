@@ -15,13 +15,13 @@ void Init_UART_0(void) {
   GPIO_PORTA_LOCK_R = 0x4C4F434B;
 
   // wait for peripheral
-  // while ((SYSCTL_PRUART_R & 0x01) == 0) {
-  // }
+   while ((SYSCTL_PRUART_R & 0x01) == 0) {
+   }
   // while ((SYSCTL_PRGPIO_R & 0x01) == 0) {
-  //}
+ // }
 
-  for (int i = 0; i < 1000; i++)
-    ;
+//  for (int i = 0; i < 1000; i++)
+  //  ;
 
   // disable uart
   UART0_CTL_R = 0x00;

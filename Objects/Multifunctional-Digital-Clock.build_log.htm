@@ -30,33 +30,7 @@ Project File Date:  12/05/2023
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'TM4C123GH6PM'
-uart.c(3): warning: // comments are not allowed in this language [-Wcomment]
-//#include "tm4c123gh6pm.h"
-^
-uart.c(23): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
-  for (int i = 0; i < 1000; i++)
-       ^
-uart.c(23): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
-uart.c(54): warning: empty expression statement has no effect; remove unnecessary ';' to silence this warning [-Wextra-semi-stmt]
-  while ((UART0_FR_R & 0x0020)) {};
-                                  ^
-uart.c(65): warning: implicit conversion loses integer precision: 'int' to 'char' [-Wimplicit-int-conversion]
-  UART_OutChar(ch);
-  ~~~~~~~~~~~~ ^~
-uart.c(59): warning: unused parameter 'f' [-Wunused-parameter]
-int fputc(int ch, FILE *f){
-                        ^
-uart.c(69): warning: unused parameter 'f' [-Wunused-parameter]
-int fgetc (FILE *f){
-                 ^
-uart.c(75): warning: unused parameter 'f' [-Wunused-parameter]
-int ferror(FILE *f){
-                 ^
-8 warnings generated.
-compiling uart.c...
-linking...
-Program Size: Code=1444 RO-data=44 RW-data=0 ZI-data=608  
-".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 8 Warning(s).
+".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
