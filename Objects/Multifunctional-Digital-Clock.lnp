@@ -7,6 +7,7 @@
 ".\objects\gpio.o"
 ".\objects\fifo.o"
 ".\objects\uart.o"
+".\objects\dfplayer_lib.o"
 ".\objects\startup_tm4c123.o"
 ".\objects\system_tm4c123.o"
 --strict --scatter ".\Objects\Multifunctional-Digital-Clock.sct"

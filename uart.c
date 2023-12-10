@@ -70,11 +70,11 @@
 //   UART0_CTL_R |= 0x301; // Enable UART0 with TXE, RXE and UARTEN bits
 //   // set mode to alternate function
 //   GPIO_PORTA_PCTL_R |= 0x00000011;                       // UART
-//   GPIO_PORTA_AMSEL_R = 0x00;                             // disable analog function on PA1-0
-//   GPIO_PORTA_AFSEL_R |= 0x03;                            // enable alt funct on PA1-0
-//   NVIC_PRI1_R = (NVIC_PRI1_R & 0xFFFF00FF) | 0x00004000; // bits 13-15
-//   NVIC_EN0_R = NVIC_EN0_INT5;                            // enable interrupt 5 in NVIC
-//   EnableInterrupts();
+//   GPIO_PORTA_AMSEL_R = 0x00;                             // disable analog
+//   function on PA1-0 GPIO_PORTA_AFSEL_R |= 0x03;                            //
+//   enable alt funct on PA1-0 NVIC_PRI1_R = (NVIC_PRI1_R & 0xFFFF00FF) |
+//   0x00004000; // bits 13-15 NVIC_EN0_R = NVIC_EN0_INT5; // enable interrupt 5
+//   in NVIC EnableInterrupts();
 // }
 
 // // input ASCII character from UART
@@ -93,7 +93,8 @@
 // void static copyHardwareToSoftware(void)
 // {
 //   char letter;
-//   while (((UART0_FR_R & UART_FR_RXFE) == 0) && (RxFifo_Size() < (FIFOSIZE - 1)))
+//   while (((UART0_FR_R & UART_FR_RXFE) == 0) && (RxFifo_Size() < (FIFOSIZE -
+//   1)))
 //   {
 //     letter = UART0_DR_R;
 //     RxFifo_Put(letter);
@@ -225,31 +226,32 @@
 #include "FIFO.h"
 #include "uart.h"
 
-
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 // long StartCritical(void);     // previous I bit, disable interrupts
 // void EndCritical(long sr);    // restore I bit to previous value
-void WaitForInterrupt(void);  // low power mode
-#define FIFOSIZE 16           // size of the FIFOs (must be power of 2)
-#define FIFOSUCCESS 1         // return value on success
-#define FIFOFAIL 0            // return value on failure
-                              // create index implementation FIFO (see FIFO.h)
-// AddIndexFifo(Rx, FIFOSIZE, char, FIFOSUCCESS, FIFOFAIL)
-// AddIndexFifo(Tx, FIFOSIZE, char, FIFOSUCCESS, FIFOFAIL)
+void WaitForInterrupt(void); // low power mode
+#define FIFOSIZE 16          // size of the FIFOs (must be power of 2)
+#define FIFOSUCCESS 1        // return value on success
+#define FIFOFAIL                                                               \
+  0 // return value on failure
+    // create index implementation FIFO (see FIFO.h)
+    // AddIndexFifo(Rx, FIFOSIZE, char, FIFOSUCCESS, FIFOFAIL)
+    // AddIndexFifo(Tx, FIFOSIZE, char, FIFOSUCCESS, FIFOFAIL)
 
-    // Initialize UART0 and UART1
-    // Baud rate is 115200 bits/sec
-    void UART_Init(void)
-{
+// Initialize UART0 and UART1
+// Baud rate is 115200 bits/sec
+void UART_Init(void) {
   // SYSCTL_RCGCUART_R |= 0x01; // activate UART0
   // SYSCTL_RCGCGPIO_R |= 0x01; // activate port A
   // RxFifo_Init();             // initialize empty FIFOs
   // TxFifo_Init();
   // UART0_CTL_R &= ~UART_CTL_UARTEN; // disable UART
-  // UART0_IBRD_R = 27;               // IBRD = int(50,000,000 / (16 * 115,200)) = int(27.1267)
-  // UART0_FBRD_R = 8;                // FBRD = int(0.1267 * 64 + 0.5) = 8
-  //                                  // 8 bit word length (no parity bits, one stop bit, FIFOs)
+  // UART0_IBRD_R = 27;               // IBRD = int(50,000,000 / (16 * 115,200))
+  // = int(27.1267) UART0_FBRD_R = 8;                // FBRD = int(0.1267 * 64 +
+  // 0.5) = 8
+  //                                  // 8 bit word length (no parity bits, one
+  //                                  stop bit, FIFOs)
   // UART0_LCRH_R = (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
   // UART0_IFLS_R &= ~0x3F; // clear TX and RX interrupt FIFO level fields
   //                        // configure interrupt for TX FIFO <= 1/8 full
@@ -262,10 +264,12 @@ void WaitForInterrupt(void);  // low power mode
   // GPIO_PORTA_DEN_R |= 0x03;       // enable digital I/O on PA1-0
   //                                 // configure PA1-0 as UART
   // GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0xFFFFFF00) + 0x00000011;
-  // GPIO_PORTA_AMSEL_R = 0;                                // disable analog functionality on PA
+  // GPIO_PORTA_AMSEL_R = 0;                                // disable analog
+  // functionality on PA
   //                                                        // UART0=priority 2
   // NVIC_PRI1_R = (NVIC_PRI1_R & 0xFFFF00FF) | 0x00004000; // bits 13-15
-  // NVIC_EN0_R = NVIC_EN0_INT5;                            // enable interrupt 5 in NVIC
+  // NVIC_EN0_R = NVIC_EN0_INT5;                            // enable interrupt
+  // 5 in NVIC
 
   // Activate UART1 Port C
   SYSCTL_RCGCUART_R |= 0x02; // activate UART1
@@ -273,7 +277,9 @@ void WaitForInterrupt(void);  // low power mode
   RxFifo_Init();             // initialize empty FIFOs
   TxFifo_Init();
   UART1_CTL_R &= ~UART_CTL_UARTEN; // disable UART
-  UART1_IBRD_R = 27;               // IBRD = int(50,000,000 / (16 * 115,200)) = int(27.1267)
+  UART1_IBRD_R = 325; // IBRD = int(50,000,000 / (16 * 9600)) = int(325.5208))
+  UART1_FBRD_R = 33;  // FBRD = int(0.5208 * 64 + 0.5) = 33
+                      // 8 bit word length (no parity bits, one stop bit, FIFOs)
 
   UART1_LCRH_R = (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
   UART1_IFLS_R &= ~0x3F; // clear TX and RX interrupt FIFO level fields
@@ -286,51 +292,44 @@ void WaitForInterrupt(void);  // low power mode
   GPIO_PORTC_DEN_R |= 0x30;       // enable digital I/O on PC5-4
                                   // configure PC5-4 as UART
   GPIO_PORTC_PCTL_R = (GPIO_PORTC_PCTL_R & 0xFF00FFFF) + 0x00220000;
-  GPIO_PORTC_AMSEL_R = 0;                                // disable analog functionality on PC
-                                                         // UART1=priority 2
+  GPIO_PORTC_AMSEL_R = 0; // disable analog functionality on PC
+                          // UART1=priority 2
   NVIC_PRI1_R = (NVIC_PRI1_R & 0xFF00FFFF) | 0x00400000; // bits 21-23
-  NVIC_EN0_R = NVIC_EN0_INT6;                            // enable interrupt 6 in NVIC
-  
+  NVIC_EN0_R = NVIC_EN0_INT6; // enable interrupt 6 in NVIC
+
   EnableInterrupts();
 }
 // copy from hardware RX FIFO to software RX FIFO
 // stop when hardware RX FIFO is empty or software RX FIFO is full
-void static copyHardwareToSoftware(void)
-{
+void static copyHardwareToSoftware(void) {
   char letter;
-  while (((UART1_FR_R & UART_FR_RXFE) == 0) && (RxFifo_Size() < (FIFOSIZE - 1)))
-  {
+  while (((UART1_FR_R & UART_FR_RXFE) == 0) &&
+         (RxFifo_Size() < (FIFOSIZE - 1))) {
     letter = UART1_DR_R;
     RxFifo_Put(letter);
   }
 }
 // copy from software TX FIFO to hardware TX FIFO
 // stop when software TX FIFO is empty or hardware TX FIFO is full
-void static copySoftwareToHardware(void)
-{
+void static copySoftwareToHardware(void) {
   char letter;
-  while (((UART1_FR_R & UART_FR_TXFF) == 0) && (TxFifo_Size() > 0))
-  {
+  while (((UART1_FR_R & UART_FR_TXFF) == 0) && (TxFifo_Size() > 0)) {
     TxFifo_Get(&letter);
     UART1_DR_R = letter;
   }
 }
 // input ASCII character from UART
 // spin if RxFifo is empty
-char UART_InChar(void)
-{
+char UART_InChar(void) {
   char letter;
-  while (RxFifo_Get(&letter) == FIFOFAIL)
-  {
+  while (RxFifo_Get(&letter) == FIFOFAIL) {
   };
   return (letter);
 }
 // output ASCII character to UART
 // spin if TxFifo is full
-void UART_OutChar(char data)
-{
-  while (TxFifo_Put(data) == FIFOFAIL)
-  {
+void UART_OutChar(char data) {
+  while (TxFifo_Put(data) == FIFOFAIL) {
   };
   UART1_IM_R &= ~UART_IM_TXIM; // disable TX FIFO interrupt
   copySoftwareToHardware();
@@ -340,27 +339,22 @@ void UART_OutChar(char data)
 // hardware TX FIFO goes from 3 to 2 or less items
 // hardware RX FIFO goes from 1 to 2 or more items
 // UART receiver has timed out
-void UART1_Handler(void)
-{
-  if (UART1_RIS_R & UART_RIS_TXRIS)
-  {                              // hardware TX FIFO <= 2 items
-    UART1_ICR_R = UART_ICR_TXIC; // acknowledge TX FIFO
+void UART1_Handler(void) {
+  if (UART1_RIS_R & UART_RIS_TXRIS) { // hardware TX FIFO <= 2 items
+    UART1_ICR_R = UART_ICR_TXIC;      // acknowledge TX FIFO
     // copy from software TX FIFO to hardware TX FIFO
     copySoftwareToHardware();
-    if (TxFifo_Size() == 0)
-    {                              // software TX FIFO is empty
+    if (TxFifo_Size() == 0) {      // software TX FIFO is empty
       UART1_IM_R &= ~UART_IM_TXIM; // disable TX FIFO interrupt
     }
   }
-  if (UART1_RIS_R & UART_RIS_RXRIS)
-  {                              // hardware RX FIFO >= 2 items
-    UART1_ICR_R = UART_ICR_RXIC; // acknowledge RX FIFO
+  if (UART1_RIS_R & UART_RIS_RXRIS) { // hardware RX FIFO >= 2 items
+    UART1_ICR_R = UART_ICR_RXIC;      // acknowledge RX FIFO
     // copy from hardware RX FIFO to software RX FIFO
     copyHardwareToSoftware();
   }
-  if (UART1_RIS_R & UART_RIS_RTRIS)
-  {                              // receiver timed out
-    UART1_ICR_R = UART_ICR_RTIC; // acknowledge receiver time out
+  if (UART1_RIS_R & UART_RIS_RTRIS) { // receiver timed out
+    UART1_ICR_R = UART_ICR_RTIC;      // acknowledge receiver time out
     // copy from hardware RX FIFO to software RX FIFO
     copyHardwareToSoftware();
   }
@@ -370,10 +364,8 @@ void UART1_Handler(void)
 // Output String (NULL termination)
 // Input: pointer to a NULL-terminated string to be transferred
 // Output: none
-void UART_OutString(char *pt)
-{
-  while (*pt)
-  {
+void UART_OutString(char *pt) {
+  while (*pt) {
     UART_OutChar(*pt);
     pt++;
   }
@@ -387,25 +379,22 @@ void UART_OutString(char *pt)
 // Output: 32-bit unsigned number
 // If you enter a number above 4294967295, it will return an incorrect value
 // Backspace will remove last digit typed
-uint32_t UART_InUDec(void)
-{
+uint32_t UART_InUDec(void) {
   uint32_t number = 0, length = 0;
   char character;
   character = UART_InChar();
-  while (character != CR)
-  { // accepts until <enter> is typed
+  while (character != CR) { // accepts until <enter> is typed
     // The next line checks that the input is a digit, 0-9.
     // If the character is not 0-9, it is ignored and not echoed
-    if ((character >= '0') && (character <= '9'))
-    {
-      number = 10 * number + (character - '0'); // this line overflows if above 4294967295
+    if ((character >= '0') && (character <= '9')) {
+      number = 10 * number +
+               (character - '0'); // this line overflows if above 4294967295
       length++;
       UART_OutChar(character);
     }
     // If the input is a backspace, then the return number is
     // changed and a backspace is outputted to the screen
-    else if ((character == BS) && length)
-    {
+    else if ((character == BS) && length) {
       number /= 10;
       length--;
       UART_OutChar(character);
@@ -420,12 +409,10 @@ uint32_t UART_InUDec(void)
 // Input: 32-bit number to be transferred
 // Output: none
 // Variable format 1-10 digits with no space before or after
-void UART_OutUDec(uint32_t n)
-{
+void UART_OutUDec(uint32_t n) {
   // This function uses recursion to convert decimal number
   //   of unspecified length as an ASCII string
-  if (n >= 10)
-  {
+  if (n >= 10) {
     UART_OutUDec(n / 10);
     n = n % 10;
   }
@@ -442,36 +429,27 @@ void UART_OutUDec(uint32_t n)
 //     value range is 0 to FFFFFFFF
 // If you enter a number above FFFFFFFF, it will return an incorrect value
 // Backspace will remove last digit typed
-uint32_t UART_InUHex(void)
-{
+uint32_t UART_InUHex(void) {
   uint32_t number = 0, digit, length = 0;
   char character;
   character = UART_InChar();
-  while (character != CR)
-  {
+  while (character != CR) {
     digit = 0x10; // assume bad
-    if ((character >= '0') && (character <= '9'))
-    {
+    if ((character >= '0') && (character <= '9')) {
       digit = character - '0';
-    }
-    else if ((character >= 'A') && (character <= 'F'))
-    {
+    } else if ((character >= 'A') && (character <= 'F')) {
       digit = (character - 'A') + 0xA;
-    }
-    else if ((character >= 'a') && (character <= 'f'))
-    {
+    } else if ((character >= 'a') && (character <= 'f')) {
       digit = (character - 'a') + 0xA;
     }
     // If the character is not 0-9 or A-F, it is ignored and not echoed
-    if (digit <= 0xF)
-    {
+    if (digit <= 0xF) {
       number = number * 0x10 + digit;
       length++;
       UART_OutChar(character);
     }
     // Backspace outputted and return value changed if a backspace is inputted
-    else if ((character == BS) && length)
-    {
+    else if ((character == BS) && length) {
       number /= 0x10;
       length--;
       UART_OutChar(character);
@@ -486,23 +464,16 @@ uint32_t UART_InUHex(void)
 // Input: 32-bit number to be transferred
 // Output: none
 // Variable format 1 to 8 digits with no space before or after
-void UART_OutUHex(uint32_t number)
-{
+void UART_OutUHex(uint32_t number) {
   // This function uses recursion to convert the number of
   //   unspecified length as an ASCII string
-  if (number >= 0x10)
-  {
+  if (number >= 0x10) {
     UART_OutUHex(number / 0x10);
     UART_OutUHex(number % 0x10);
-  }
-  else
-  {
-    if (number < 0xA)
-    {
+  } else {
+    if (number < 0xA) {
       UART_OutChar(number + '0');
-    }
-    else
-    {
+    } else {
       UART_OutChar((number - 0x0A) + 'A');
     }
   }
@@ -520,24 +491,18 @@ void UART_OutUHex(uint32_t number)
 // Input: pointer to empty buffer, size of buffer
 // Output: Null terminated string
 // -- Modified by Agustinus Darmawan + Mingjie Qiu --
-void UART_InString(char *bufPt, uint16_t max)
-{
+void UART_InString(char *bufPt, uint16_t max) {
   int length = 0;
   char character;
   character = UART_InChar();
-  while (character != CR)
-  {
-    if (character == BS)
-    {
-      if (length)
-      {
+  while (character != CR) {
+    if (character == BS) {
+      if (length) {
         bufPt--;
         length--;
         UART_OutChar(BS);
       }
-    }
-    else if (length < max)
-    {
+    } else if (length < max) {
       *bufPt = character;
       bufPt++;
       length++;

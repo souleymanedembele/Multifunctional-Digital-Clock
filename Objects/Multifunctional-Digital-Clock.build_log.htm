@@ -30,7 +30,74 @@ Project File Date:  12/09/2023
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'TM4C123GH6PM'
-".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 0 Warning(s).
+dfplayer_lib.c(9): warning: In file included from...
+./dfplayer_lib.h(34): warning: commas at the end of enumerator lists are a C99-specific feature [-Wc99-extensions]
+  Base = 0x05,
+             ^
+./dfplayer_lib.h(41): warning: commas at the end of enumerator lists are a C99-specific feature [-Wc99-extensions]
+  Shuffle = 0x03,
+                ^
+./dfplayer_lib.h(49): warning: commas at the end of enumerator lists are a C99-specific feature [-Wc99-extensions]
+  FLASH_SR = 0x04,
+                 ^
+dfplayer_lib.c(10): warning: In file included from...
+./uart.h(46): warning: // comments are not allowed in this language [-Wcomment]
+#define NVIC_EN0_INT5 0x00000020 // Interrupt 5 enable
+                                 ^
+dfplayer_lib.c(21): warning: // comments are not allowed in this language [-Wcomment]
+  time = 727240 * 200 / 91; // 0.1sec
+                            ^
+dfplayer_lib.c(19): warning: no previous prototype for function 'Delay' [-Wmissing-prototypes]
+void Delay(void) {
+     ^
+dfplayer_lib.c(19): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void Delay(void) {
+^
+static 
+dfplayer_lib.c(27): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
+  for (int i = 0; i < length; i++) {
+       ^
+dfplayer_lib.c(27): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+dfplayer_lib.c(26): warning: no previous prototype for function 'send_byte' [-Wmissing-prototypes]
+void send_byte(const uint8_t *data, int length) {
+     ^
+dfplayer_lib.c(26): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void send_byte(const uint8_t *data, int length) {
+^
+static 
+dfplayer_lib.c(41): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+      param1,     param2,       (checksum >> 8), checksum, END_BYTE};
+                                                 ^~~~~~~~
+dfplayer_lib.c(40): warning: initializer for aggregate is not a compile-time constant [-Wc99-extensions]
+      START_BYTE, VERSION_INFO, CMD_LEN,         cmd,      FEEDBACK_EN,
+                                                 ^~~
+dfplayer_lib.c(39): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
+  uint8_t cmd_frame[CMD_FRAME_LEN] = {
+          ^
+dfplayer_lib.c(31): warning: no previous prototype for function 'dfplayer_send_cmd' [-Wmissing-prototypes]
+void dfplayer_send_cmd(uint8_t cmd, uint8_t param1, uint8_t param2) {
+     ^
+dfplayer_lib.c(31): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void dfplayer_send_cmd(uint8_t cmd, uint8_t param1, uint8_t param2) {
+^
+static 
+dfplayer_lib.c(47): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
+  for (int j = 0; j < 4; j++) {
+       ^
+dfplayer_lib.c(47): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+dfplayer_lib.c(51): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
+  for (int i = 0; i < 10; i++) {
+       ^
+dfplayer_lib.c(51): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+dfplayer_lib.c(58): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
+  for (int i = 0; i < 10; i++) {
+       ^
+dfplayer_lib.c(58): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+19 warnings generated.
+compiling dfplayer_lib.c...
+linking...
+Program Size: Code=2468 RO-data=636 RW-data=0 ZI-data=656  
+".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 19 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -59,7 +126,7 @@ Package Vendor: Keil
       Source file:   Device/Source/system_TM4C123.c
       Source file:   Device/Source/ARM/startup_TM4C123.s
       Include file:  Device/Include/TM4C123/TM4C123.h
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

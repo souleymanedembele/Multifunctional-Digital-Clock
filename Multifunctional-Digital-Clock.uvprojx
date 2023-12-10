@@ -464,6 +464,16 @@
               <FileType>5</FileType>
               <FilePath>.\uart.h</FilePath>
             </File>
+            <File>
+              <FileName>dfplayer_lib.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\dfplayer_lib.h</FilePath>
+            </File>
+            <File>
+              <FileName>dfplayer_lib.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\dfplayer_lib.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

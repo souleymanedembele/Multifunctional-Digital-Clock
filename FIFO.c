@@ -31,7 +31,7 @@ unsigned long volatile TxGetI;// get next
 // initialize index FIFO
 void TxFifo_Init(void){ long sr;
   sr = StartCritical(); // make atomic
-  TxPutI = TxGetI = 0;  // Empty
+  TxPutI = TxGetI = 0;  
   EndCritical(sr);
 }
 // add element to end of index FIFO
