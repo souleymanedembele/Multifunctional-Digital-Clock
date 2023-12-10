@@ -224,49 +224,7 @@
 
 #include "FIFO.h"
 #include "uart.h"
-#define UART1_CTL_R             (*((volatile uint32_t *)0x4000D030))
-#define UART1_FR_R              (*((volatile uint32_t *)0x4000D018))
-#define UART1_ILPR_R            (*((volatile uint32_t *)0x4000D020))
-#define UART1_IBRD_R            (*((volatile uint32_t *)0x4000D024))
-#define UART1_FBRD_R            (*((volatile uint32_t *)0x4000D028))
-#define UART1_LCRH_R            (*((volatile uint32_t *)0x4000D02C))
-#define UART1_CTL_R             (*((volatile uint32_t *)0x4000D030))
-#define UART1_IFLS_R            (*((volatile uint32_t *)0x4000D034))
-#define UART1_IM_R              (*((volatile uint32_t *)0x4000D038))
-#define UART1_RIS_R             (*((volatile uint32_t *)0x4000D03C))
-#define UART1_MIS_R             (*((volatile uint32_t *)0x4000D040))
-#define UART1_ICR_R             (*((volatile uint32_t *)0x4000D044))
 
-#define GPIO_PORTC_ICR_R        (*((volatile uint32_t *)0x4000641C))
-#define GPIO_PORTC_AFSEL_R      (*((volatile uint32_t *)0x40006420))
-#define GPIO_PORTC_DEN_R        (*((volatile uint32_t *)0x4000651C))
-#define GPIO_PORTC_PCTL_R       (*((volatile uint32_t *)0x4000652C))
-#define GPIO_PORTC_AMSEL_R      (*((volatile uint32_t *)0x40006528))
-
-#define NVIC_EN0_INT5 0x00000020 // Interrupt 5 enable
-#define NVIC_EN0_INT6           0x00000040  // Interrupt 6 enable
-
-#define UART_FR_RXFF 0x00000040     // UART Receive FIFO Full
-#define UART_FR_TXFF 0x00000020     // UART Transmit FIFO Full
-#define UART_FR_RXFE 0x00000010     // UART Receive FIFO Empty
-#define UART_LCRH_WLEN_8 0x00000060 // 8 bit word length
-#define UART_LCRH_FEN 0x00000010    // UART Enable FIFOs
-#define UART_CTL_UARTEN 0x00000001  // UART Enable
-#define UART_IFLS_RX1_8 0x00000000  // RX FIFO >= 1/8 full
-#define UART_IFLS_TX1_8 0x00000000  // TX FIFO <= 1/8 full
-#define UART_IM_RTIM 0x00000040     // UART Receive Time-Out Interrupt
-                                    // Mask
-#define UART_IM_TXIM 0x00000020     // UART Transmit Interrupt Mask
-#define UART_IM_RXIM 0x00000010     // UART Receive Interrupt Mask
-#define UART_RIS_RTRIS 0x00000040   // UART Receive Time-Out Raw
-                                    // Interrupt Status
-#define UART_RIS_TXRIS 0x00000020   // UART Transmit Raw Interrupt
-                                    // Status
-#define UART_RIS_RXRIS 0x00000010   // UART Receive Raw Interrupt
-                                    // Status
-#define UART_ICR_RTIC 0x00000040    // Receive Time-Out Interrupt Clear
-#define UART_ICR_TXIC 0x00000020    // Transmit Interrupt Clear
-#define UART_ICR_RXIC 0x00000010    // Receive Interrupt Clear
 
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
@@ -284,30 +242,30 @@ void WaitForInterrupt(void);  // low power mode
     // Baud rate is 115200 bits/sec
     void UART_Init(void)
 {
-  SYSCTL_RCGCUART_R |= 0x01; // activate UART0
-  SYSCTL_RCGCGPIO_R |= 0x01; // activate port A
-  RxFifo_Init();             // initialize empty FIFOs
-  TxFifo_Init();
-  UART0_CTL_R &= ~UART_CTL_UARTEN; // disable UART
-  UART0_IBRD_R = 27;               // IBRD = int(50,000,000 / (16 * 115,200)) = int(27.1267)
-  UART0_FBRD_R = 8;                // FBRD = int(0.1267 * 64 + 0.5) = 8
-                                   // 8 bit word length (no parity bits, one stop bit, FIFOs)
-  UART0_LCRH_R = (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
-  UART0_IFLS_R &= ~0x3F; // clear TX and RX interrupt FIFO level fields
-                         // configure interrupt for TX FIFO <= 1/8 full
-                         // configure interrupt for RX FIFO >= 1/8 full
-  UART0_IFLS_R += (UART_IFLS_TX1_8 | UART_IFLS_RX1_8);
-  // enable TX and RX FIFO interrupts and RX time-out interrupt
-  UART0_IM_R |= (UART_IM_RXIM | UART_IM_TXIM | UART_IM_RTIM);
-  UART0_CTL_R |= UART_CTL_UARTEN; // enable UART
-  GPIO_PORTA_AFSEL_R |= 0x03;     // enable alt funct on PA1-0
-  GPIO_PORTA_DEN_R |= 0x03;       // enable digital I/O on PA1-0
-                                  // configure PA1-0 as UART
-  GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0xFFFFFF00) + 0x00000011;
-  GPIO_PORTA_AMSEL_R = 0;                                // disable analog functionality on PA
-                                                         // UART0=priority 2
-  NVIC_PRI1_R = (NVIC_PRI1_R & 0xFFFF00FF) | 0x00004000; // bits 13-15
-  NVIC_EN0_R = NVIC_EN0_INT5;                            // enable interrupt 5 in NVIC
+  // SYSCTL_RCGCUART_R |= 0x01; // activate UART0
+  // SYSCTL_RCGCGPIO_R |= 0x01; // activate port A
+  // RxFifo_Init();             // initialize empty FIFOs
+  // TxFifo_Init();
+  // UART0_CTL_R &= ~UART_CTL_UARTEN; // disable UART
+  // UART0_IBRD_R = 27;               // IBRD = int(50,000,000 / (16 * 115,200)) = int(27.1267)
+  // UART0_FBRD_R = 8;                // FBRD = int(0.1267 * 64 + 0.5) = 8
+  //                                  // 8 bit word length (no parity bits, one stop bit, FIFOs)
+  // UART0_LCRH_R = (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
+  // UART0_IFLS_R &= ~0x3F; // clear TX and RX interrupt FIFO level fields
+  //                        // configure interrupt for TX FIFO <= 1/8 full
+  //                        // configure interrupt for RX FIFO >= 1/8 full
+  // UART0_IFLS_R += (UART_IFLS_TX1_8 | UART_IFLS_RX1_8);
+  // // enable TX and RX FIFO interrupts and RX time-out interrupt
+  // UART0_IM_R |= (UART_IM_RXIM | UART_IM_TXIM | UART_IM_RTIM);
+  // UART0_CTL_R |= UART_CTL_UARTEN; // enable UART
+  // GPIO_PORTA_AFSEL_R |= 0x03;     // enable alt funct on PA1-0
+  // GPIO_PORTA_DEN_R |= 0x03;       // enable digital I/O on PA1-0
+  //                                 // configure PA1-0 as UART
+  // GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0xFFFFFF00) + 0x00000011;
+  // GPIO_PORTA_AMSEL_R = 0;                                // disable analog functionality on PA
+  //                                                        // UART0=priority 2
+  // NVIC_PRI1_R = (NVIC_PRI1_R & 0xFFFF00FF) | 0x00004000; // bits 13-15
+  // NVIC_EN0_R = NVIC_EN0_INT5;                            // enable interrupt 5 in NVIC
 
   // Activate UART1 Port C
   SYSCTL_RCGCUART_R |= 0x02; // activate UART1
@@ -340,9 +298,9 @@ void WaitForInterrupt(void);  // low power mode
 void static copyHardwareToSoftware(void)
 {
   char letter;
-  while (((UART0_FR_R & UART_FR_RXFE) == 0) && (RxFifo_Size() < (FIFOSIZE - 1)))
+  while (((UART1_FR_R & UART_FR_RXFE) == 0) && (RxFifo_Size() < (FIFOSIZE - 1)))
   {
-    letter = UART0_DR_R;
+    letter = UART1_DR_R;
     RxFifo_Put(letter);
   }
 }
@@ -351,10 +309,10 @@ void static copyHardwareToSoftware(void)
 void static copySoftwareToHardware(void)
 {
   char letter;
-  while (((UART0_FR_R & UART_FR_TXFF) == 0) && (TxFifo_Size() > 0))
+  while (((UART1_FR_R & UART_FR_TXFF) == 0) && (TxFifo_Size() > 0))
   {
     TxFifo_Get(&letter);
-    UART0_DR_R = letter;
+    UART1_DR_R = letter;
   }
 }
 // input ASCII character from UART
@@ -374,35 +332,35 @@ void UART_OutChar(char data)
   while (TxFifo_Put(data) == FIFOFAIL)
   {
   };
-  UART0_IM_R &= ~UART_IM_TXIM; // disable TX FIFO interrupt
+  UART1_IM_R &= ~UART_IM_TXIM; // disable TX FIFO interrupt
   copySoftwareToHardware();
-  UART0_IM_R |= UART_IM_TXIM; // enable TX FIFO interrupt
+  UART1_IM_R |= UART_IM_TXIM; // enable TX FIFO interrupt
 }
 // at least one of three things has happened:
 // hardware TX FIFO goes from 3 to 2 or less items
 // hardware RX FIFO goes from 1 to 2 or more items
 // UART receiver has timed out
-void UART0_Handler(void)
+void UART1_Handler(void)
 {
-  if (UART0_RIS_R & UART_RIS_TXRIS)
+  if (UART1_RIS_R & UART_RIS_TXRIS)
   {                              // hardware TX FIFO <= 2 items
-    UART0_ICR_R = UART_ICR_TXIC; // acknowledge TX FIFO
+    UART1_ICR_R = UART_ICR_TXIC; // acknowledge TX FIFO
     // copy from software TX FIFO to hardware TX FIFO
     copySoftwareToHardware();
     if (TxFifo_Size() == 0)
     {                              // software TX FIFO is empty
-      UART0_IM_R &= ~UART_IM_TXIM; // disable TX FIFO interrupt
+      UART1_IM_R &= ~UART_IM_TXIM; // disable TX FIFO interrupt
     }
   }
-  if (UART0_RIS_R & UART_RIS_RXRIS)
+  if (UART1_RIS_R & UART_RIS_RXRIS)
   {                              // hardware RX FIFO >= 2 items
-    UART0_ICR_R = UART_ICR_RXIC; // acknowledge RX FIFO
+    UART1_ICR_R = UART_ICR_RXIC; // acknowledge RX FIFO
     // copy from hardware RX FIFO to software RX FIFO
     copyHardwareToSoftware();
   }
-  if (UART0_RIS_R & UART_RIS_RTRIS)
+  if (UART1_RIS_R & UART_RIS_RTRIS)
   {                              // receiver timed out
-    UART0_ICR_R = UART_ICR_RTIC; // acknowledge receiver time out
+    UART1_ICR_R = UART_ICR_RTIC; // acknowledge receiver time out
     // copy from hardware RX FIFO to software RX FIFO
     copyHardwareToSoftware();
   }

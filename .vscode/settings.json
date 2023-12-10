@@ -4,6 +4,7 @@
     "uart.h": "c",
     "stdio.h": "c",
     "fifo.h": "c",
-    "stdint.h": "c"
+    "stdint.h": "c",
+    "pll.h": "c"
   }
 }

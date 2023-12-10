@@ -1,8 +1,5 @@
-// #ifndef __UART_H__
-// #define __UART_H__
-
-// #include <stdint.h>
-// #include <stdlib.h>
+#ifndef __UART_H__
+#define __UART_H__
 
 #define SYSCTL_RCGC2_R (*((volatile unsigned long *)0x400FE108))
 #define GPIO_PORTA_LOCK_R (*((volatile unsigned long *)0x40004520))
@@ -25,41 +22,51 @@
 #define NVIC_EN0_R (*((volatile uint32_t *)0xE000E100))
 #define UART0_RIS_R (*((volatile uint32_t *)0x4000C03C))
 #define UART0_ICR_R (*((volatile uint32_t *)0x4000C044))
-// void Init_UART_0(void);
-// char UART_InChar(void);
-// void UART_OutChar(char data);
-// void printString(const char *str);
-// void Delay(void);
-// #endif
 
-// UART.h
-// Runs on LM4F120/TM4C123
-// Use UART0 to implement bidirectional data transfer to and from a
-// computer running HyperTerminal.  This time, interrupts and FIFOs
-// are used.
-// Daniel Valvano
-// September 11, 2013
+#define UART1_CTL_R             (*((volatile uint32_t *)0x4000D030))
+#define UART1_FR_R              (*((volatile uint32_t *)0x4000D018))
+#define UART1_ILPR_R            (*((volatile uint32_t *)0x4000D020))
+#define UART1_IBRD_R            (*((volatile uint32_t *)0x4000D024))
+#define UART1_FBRD_R            (*((volatile uint32_t *)0x4000D028))
+#define UART1_LCRH_R            (*((volatile uint32_t *)0x4000D02C))
+#define UART1_CTL_R             (*((volatile uint32_t *)0x4000D030))
+#define UART1_IFLS_R            (*((volatile uint32_t *)0x4000D034))
+#define UART1_IM_R              (*((volatile uint32_t *)0x4000D038))
+#define UART1_RIS_R             (*((volatile uint32_t *)0x4000D03C))
+#define UART1_MIS_R             (*((volatile uint32_t *)0x4000D040))
+#define UART1_ICR_R             (*((volatile uint32_t *)0x4000D044))
 
-/* This example accompanies the book
-   "Embedded Systems: Real Time Interfacing to Arm Cortex M Microcontrollers",
-   ISBN: 978-1463590154, Jonathan Valvano, copyright (c) 2014
-   Program 5.11 Section 5.6, Program 3.10
+#define GPIO_PORTC_ICR_R        (*((volatile uint32_t *)0x4000641C))
+#define GPIO_PORTC_AFSEL_R      (*((volatile uint32_t *)0x40006420))
+#define GPIO_PORTC_DEN_R        (*((volatile uint32_t *)0x4000651C))
+#define GPIO_PORTC_PCTL_R       (*((volatile uint32_t *)0x4000652C))
+#define GPIO_PORTC_AMSEL_R      (*((volatile uint32_t *)0x40006528))
 
- Copyright 2014 by Jonathan W. Valvano, valvano@mail.utexas.edu
-    You may use, edit, run or distribute this file
-    as long as the above copyright notice remains
- THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
- OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
- MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
- VALVANO SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL,
- OR CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
- For more information about my classes, my research, and my books, see
- http://users.ece.utexas.edu/~valvano/
- */
+#define NVIC_EN0_INT5 0x00000020 // Interrupt 5 enable
+#define NVIC_EN0_INT6           0x00000040  // Interrupt 6 enable
 
-// U0Rx (VCP receive) connected to PA0
-// U0Tx (VCP transmit) connected to PA1
-
+#define UART_FR_RXFF 0x00000040     // UART Receive FIFO Full
+#define UART_FR_TXFF 0x00000020     // UART Transmit FIFO Full
+#define UART_FR_RXFE 0x00000010     // UART Receive FIFO Empty
+#define UART_LCRH_WLEN_8 0x00000060 // 8 bit word length
+#define UART_LCRH_FEN 0x00000010    // UART Enable FIFOs
+#define UART_CTL_UARTEN 0x00000001  // UART Enable
+#define UART_IFLS_RX1_8 0x00000000  // RX FIFO >= 1/8 full
+#define UART_IFLS_TX1_8 0x00000000  // TX FIFO <= 1/8 full
+#define UART_IM_RTIM 0x00000040     // UART Receive Time-Out Interrupt
+                                    // Mask
+#define UART_IM_TXIM 0x00000020     // UART Transmit Interrupt Mask
+#define UART_IM_RXIM 0x00000010     // UART Receive Interrupt Mask
+#define UART_RIS_RTRIS 0x00000040   // UART Receive Time-Out Raw
+                                    // Interrupt Status
+#define UART_RIS_TXRIS 0x00000020   // UART Transmit Raw Interrupt
+                                    // Status
+#define UART_RIS_RXRIS 0x00000010   // UART Receive Raw Interrupt
+                                    // Status
+#define UART_ICR_RTIC 0x00000040    // Receive Time-Out Interrupt Clear
+#define UART_ICR_TXIC 0x00000020    // Transmit Interrupt Clear
+#define UART_ICR_RXIC 0x00000010    // Receive Interrupt Clear
+#define UART1_DR_R              (*((volatile uint32_t *)0x4000D000))
 // standard ASCII symbols
 #define CR 0x0D
 #define LF 0x0A
@@ -142,3 +149,4 @@ void UART_OutUHex(uint32_t number);
 // Output: Null terminated string
 // -- Modified by Agustinus Darmawan + Mingjie Qiu --
 void UART_InString(char *bufPt, uint16_t max);
+#endif
