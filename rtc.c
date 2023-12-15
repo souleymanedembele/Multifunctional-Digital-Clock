@@ -41,10 +41,10 @@ void request_hibernate_mode(void) {
     } // wait for RTC write to complete
 }
 
-// void HIBERNATE_Handler(void) {
-//     HIB_IC_R |= HIB_IC_RTCALT0; // clear RTC interrupt flag
-//    // rtc_interrupt_fired = 1;
-// }
+void HIBERNATE_Handler(void) {
+    HIB_IC_R |= HIB_IC_RTCALT0; // clear RTC interrupt flag
+   // rtc_interrupt_fired = 1;
+}
 
 // initialize real time clock on tm4c123gh6pm
 void rtc_init(void){
@@ -78,16 +78,16 @@ void rtc_init(void){
     HIB_CTL_R |= HIB_CTL_OSCDRV; // select 12pF internal load capacitance
     HIB_CTL_R &= ~HIB_CTL_RTCEN; // disable RTC
     HIB_CTL_R |= HIB_CTL_RTCEN; // enable RTC
-    // HIB_IC_R |= HIB_IC_RTCALT0; // clear RTC interrupt flag
-    // HIB_IM_R |= HIB_IM_RTCALT0; // enable RTC interrupt
-    // NVIC_EN1_R |= 1 << (INT_HIBERNATE-16-32); // enable interrupt 43 in NVIC
+    HIB_IC_R |= HIB_IC_RTCALT0; // clear RTC interrupt flag
+    HIB_IM_R |= HIB_IM_RTCALT0; // enable RTC interrupt
+    NVIC_EN1_R |= 1 << (INT_HIBERNATE-16-32); // enable interrupt 43 in NVIC
 
     HIB_CTL_R |= HIB_CTL_RTCWEN; // enable RTC write
     hibernate_write_complete();
-    HIB_RTCLD_R = 0; // set RTC load value to 0
+    // HIB_RTCLD_R = 0; // set RTC load value to 0
     hibernate_write_complete();
     HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
-    request_hibernate_mode();
+    // request_hibernate_mode();
 }
 
 void rtc_set(uint32_t time){
@@ -96,7 +96,7 @@ void rtc_set(uint32_t time){
     HIB_RTCLD_R = time; // set RTC load value to time
     hibernate_write_complete();
     HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
-    // request_hibernate_mode();
+    request_hibernate_mode();
 }
 
 uint32_t rtc_get(void){

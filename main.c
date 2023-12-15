@@ -50,17 +50,17 @@ int main(void) {
 
   PLL_Init(); // set system clock to 50 MHz
 DateTime dt;
-dt.second = 50;
-dt.minute = 59;
+dt.second = 0;
+dt.minute = 34;
 dt.hour = 11; // This is in 12-hour format
-dt.am_pm = 'P'; // 'A' for AM, 'P' for PM
+dt.am_pm = 'A'; // 'A' for AM, 'P' for PM
 dt.day = 15;
 dt.month = 12;
 dt.year = 2023;
 
     timeElapse = date_to_seconds(dt);
   rtc_init();
-  rtc_set(date_to_seconds(dt));
+  // rtc_set(date_to_seconds(dt));
   rtc_enable();
   UART_Init(); // initialize UART
  // timer0_InIt(); // initialize the timer

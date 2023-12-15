@@ -109,66 +109,9 @@ main.c(49): warning: unused variable 'n' [-Wunused-variable]
            ^
 19 warnings generated.
 compiling main.c...
-rtc.c(1): warning: In file included from...
-./rtc.h(24): warning: // comments are not allowed in this language [-Wcomment]
-#define SYSCTL_RCGCHIB_R0       0x00000001  // Hibernation Module Run Mode
-                                            ^
-rtc.c(4): warning: // comments are not allowed in this language [-Wcomment]
-    // while (HIB_CTL_R & HIB_CTL_WRC) {
-    ^
-rtc.c(3): warning: no previous prototype for function 'hibernate_write_complete' [-Wmissing-prototypes]
-void hibernate_write_complete(void) {
-     ^
-rtc.c(3): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void hibernate_write_complete(void) {
-^
-static 
-rtc.c(18): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
-              ~~ ^~~~~~~~~~~~~~~
-rtc.c(24): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
-    HIB_RTCSS_R = subSecondsMatchValue << HIB_RTCSS_RTCSSM_S; // set RTC sub seconds match value
-                ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~
-rtc.c(28): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
-              ~~ ^~~~~~~~~~~~~~~
-rtc.c(38): warning: no previous prototype for function 'request_hibernate_mode' [-Wmissing-prototypes]
-void request_hibernate_mode(void) {
-     ^
-rtc.c(38): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void request_hibernate_mode(void) {
-^
-static 
-rtc.c(79): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    HIB_CTL_R &= ~HIB_CTL_RTCEN; // disable RTC
-              ~~ ^~~~~~~~~~~~~~
-rtc.c(89): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
-              ~~ ^~~~~~~~~~~~~~~
-rtc.c(98): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
-              ~~ ^~~~~~~~~~~~~~~
-rtc.c(113): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    HIB_CTL_R &= ~HIB_CTL_RTCEN; // disable RTC
-              ~~ ^~~~~~~~~~~~~~
-rtc.c(119): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
-              ~~ ^~~~~~~~~~~~~~~
-rtc.c(1): warning: In file included from...
-./rtc.h(39): warning: padding size of 'DateTime' with 3 bytes to alignment boundary [-Wpadded]
-typedef struct {
-        ^
-rtc.c(142): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
-    uint32_t days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-             ^
-rtc.c(222): warning: no newline at end of file [-Wnewline-eof]
-// }
-    ^
-15 warnings generated.
-compiling rtc.c...
 linking...
-Program Size: Code=4056 RO-data=760 RW-data=0 ZI-data=656  
-".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 34 Warning(s).
+Program Size: Code=3952 RO-data=760 RW-data=0 ZI-data=656  
+".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 19 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -197,7 +140,7 @@ Package Vendor: Keil
       Source file:   Device/Source/system_TM4C123.c
       Include file:  Device/Include/TM4C123/TM4C123.h
       Source file:   Device/Source/ARM/startup_TM4C123.s
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
