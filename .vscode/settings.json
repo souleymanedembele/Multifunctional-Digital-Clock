@@ -5,6 +5,10 @@
     "stdio.h": "c",
     "fifo.h": "c",
     "stdint.h": "c",
-    "pll.h": "c"
+    "pll.h": "c",
+    "rtc.h": "c",
+    "dfplayer_lib.h": "c",
+    "time.h": "c",
+    "timer.h": "c"
   }
 }

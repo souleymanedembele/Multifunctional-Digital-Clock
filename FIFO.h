@@ -63,6 +63,11 @@ void RxFifo_Init(void);
 int RxFifo_Put(rxDataType data);
 int RxFifo_Get(rxDataType *datapt);
 unsigned short RxFifo_Size(void);
+void DisableInterrupts(void);
+void EnableInterrupts(void);
+void WaitForInterrupt(void);
+long StartCritical(void);
+void EndCritical(long sr);
 // // macro to create an index FIFO
 // #define AddIndexFifo(NAME,SIZE,TYPE,SUCCESS,FAIL) \
 // uint32_t volatile NAME ## PutI;    \

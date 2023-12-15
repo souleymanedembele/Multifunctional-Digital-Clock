@@ -474,6 +474,16 @@
               <FileType>1</FileType>
               <FilePath>.\dfplayer_lib.c</FilePath>
             </File>
+            <File>
+              <FileName>rtc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\rtc.h</FilePath>
+            </File>
+            <File>
+              <FileName>rtc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rtc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

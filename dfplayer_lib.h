@@ -51,4 +51,5 @@ typedef enum {
 
 void dfplayer_init(void);
 void dfplayer_play_first_track(void);
+void Delay(void);
 #endif

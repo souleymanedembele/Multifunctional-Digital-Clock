@@ -8,7 +8,7 @@ Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
 License Information: Souleymane Dembele
 University of Washington
 User-based license: Keil MDK Community
-Valid until: May 31 2033. Cached until: Dec 15 2023
+Valid until: May 31 2033. Cached until: Dec 21 2023
  
 Tool Versions:
 Toolchain:       Keil MDK Community  Version: 5.38.0.0
@@ -25,12 +25,23 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\Users\SoulAndAnyaPC\Documents\Projects\TCES_430\Multifunctional-Digital-Clock\Multifunctional-Digital-Clock.uvprojx
-Project File Date:  12/09/2023
+Project File Date:  12/14/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'TM4C123GH6PM'
-dfplayer_lib.c(9): warning: In file included from...
+main.c(8): warning: // comments are not allowed in this language [-Wcomment]
+// U0Rx (VCP receive) connected to PA0
+^
+main.c(11): warning: In file included from...
+./PLL.h(1): warning: // comments are not allowed in this language [-Wcomment]
+// PLL.h
+^
+main.c(13): warning: In file included from...
+./uart.h(46): warning: // comments are not allowed in this language [-Wcomment]
+#define NVIC_EN0_INT5 0x00000020 // Interrupt 5 enable
+                                 ^
+main.c(14): warning: In file included from...
 ./dfplayer_lib.h(34): warning: commas at the end of enumerator lists are a C99-specific feature [-Wc99-extensions]
   Base = 0x05,
              ^
@@ -40,64 +51,124 @@ dfplayer_lib.c(9): warning: In file included from...
 ./dfplayer_lib.h(49): warning: commas at the end of enumerator lists are a C99-specific feature [-Wc99-extensions]
   FLASH_SR = 0x04,
                  ^
-dfplayer_lib.c(10): warning: In file included from...
-./uart.h(46): warning: // comments are not allowed in this language [-Wcomment]
-#define NVIC_EN0_INT5 0x00000020 // Interrupt 5 enable
-                                 ^
-dfplayer_lib.c(21): warning: // comments are not allowed in this language [-Wcomment]
-  time = 727240 * 200 / 91; // 0.1sec
-                            ^
-dfplayer_lib.c(19): warning: no previous prototype for function 'Delay' [-Wmissing-prototypes]
-void Delay(void) {
+main.c(15): warning: In file included from...
+./rtc.h(24): warning: // comments are not allowed in this language [-Wcomment]
+#define SYSCTL_RCGCHIB_R0       0x00000001  // Hibernation Module Run Mode
+                                            ^
+main.c(16): warning: In file included from...
+./timer.h(12): warning: // comments are not allowed in this language [-Wcomment]
+//#include "tm4c123gh6pm.h"
+^
+./timer.h(28): warning: no previous extern declaration for non-static variable 'seconds' [-Wmissing-variable-declarations]
+volatile uint32_t seconds = 0;
+                  ^
+./timer.h(28): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile uint32_t seconds = 0;
+         ^
+main.c(22): warning: no previous prototype for function 'OutCRLF' [-Wmissing-prototypes]
+void OutCRLF(void){
      ^
-dfplayer_lib.c(19): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void Delay(void) {
+main.c(22): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void OutCRLF(void){
 ^
 static 
-dfplayer_lib.c(27): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
-  for (int i = 0; i < length; i++) {
-       ^
-dfplayer_lib.c(27): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
-dfplayer_lib.c(26): warning: no previous prototype for function 'send_byte' [-Wmissing-prototypes]
-void send_byte(const uint8_t *data, int length) {
+main.c(27): warning: no previous extern declaration for non-static variable 'timeElapse' [-Wmissing-variable-declarations]
+uint32_t timeElapse = 0; // global variable to keep track of time elapsed in main loop cycle (1ms)
+         ^
+main.c(27): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t timeElapse = 0; // global variable to keep track of time elapsed in main loop cycle (1ms)
+^
+main.c(31): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
+  int i;
+      ^
+main.c(28): warning: no previous prototype for function 'timer0A_delayMs' [-Wmissing-prototypes]
+void timer0A_delayMs(int ttime)
      ^
-dfplayer_lib.c(26): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void send_byte(const uint8_t *data, int length) {
+main.c(28): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void timer0A_delayMs(int ttime)
 ^
 static 
-dfplayer_lib.c(41): warning: implicit conversion loses integer precision: 'uint16_t' (aka 'unsigned short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
-      param1,     param2,       (checksum >> 8), checksum, END_BYTE};
-                                                 ^~~~~~~~
-dfplayer_lib.c(40): warning: initializer for aggregate is not a compile-time constant [-Wc99-extensions]
-      START_BYTE, VERSION_INFO, CMD_LEN,         cmd,      FEEDBACK_EN,
-                                                 ^~~
-dfplayer_lib.c(39): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
-  uint8_t cmd_frame[CMD_FRAME_LEN] = {
-          ^
-dfplayer_lib.c(31): warning: no previous prototype for function 'dfplayer_send_cmd' [-Wmissing-prototypes]
-void dfplayer_send_cmd(uint8_t cmd, uint8_t param1, uint8_t param2) {
-     ^
-dfplayer_lib.c(31): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void dfplayer_send_cmd(uint8_t cmd, uint8_t param1, uint8_t param2) {
-^
-static 
-dfplayer_lib.c(47): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
-  for (int j = 0; j < 4; j++) {
+main.c(15): warning: In file included from...
+./rtc.h(39): warning: padding size of 'DateTime' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct {
+        ^
+main.c(67): warning: implicit declaration of function 'EnableInterrupts' [-Wimplicit-function-declaration]
+  EnableInterrupts();
+  ^
+main.c(52): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
+DateTime dt;
+         ^
+main.c(47): warning: unused variable 'i' [-Wunused-variable]
+  char i;
        ^
-dfplayer_lib.c(47): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
-dfplayer_lib.c(51): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
-  for (int i = 0; i < 10; i++) {
+main.c(48): warning: unused variable 'string' [-Wunused-variable]
+  char string[20]; // global to assist in debugging
        ^
-dfplayer_lib.c(51): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
-dfplayer_lib.c(58): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
-  for (int i = 0; i < 10; i++) {
-       ^
-dfplayer_lib.c(58): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+main.c(49): warning: unused variable 'n' [-Wunused-variable]
+  uint32_t n;
+           ^
 19 warnings generated.
-compiling dfplayer_lib.c...
+compiling main.c...
+rtc.c(1): warning: In file included from...
+./rtc.h(24): warning: // comments are not allowed in this language [-Wcomment]
+#define SYSCTL_RCGCHIB_R0       0x00000001  // Hibernation Module Run Mode
+                                            ^
+rtc.c(4): warning: // comments are not allowed in this language [-Wcomment]
+    // while (HIB_CTL_R & HIB_CTL_WRC) {
+    ^
+rtc.c(3): warning: no previous prototype for function 'hibernate_write_complete' [-Wmissing-prototypes]
+void hibernate_write_complete(void) {
+     ^
+rtc.c(3): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void hibernate_write_complete(void) {
+^
+static 
+rtc.c(18): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
+              ~~ ^~~~~~~~~~~~~~~
+rtc.c(24): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+    HIB_RTCSS_R = subSecondsMatchValue << HIB_RTCSS_RTCSSM_S; // set RTC sub seconds match value
+                ~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~
+rtc.c(28): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
+              ~~ ^~~~~~~~~~~~~~~
+rtc.c(38): warning: no previous prototype for function 'request_hibernate_mode' [-Wmissing-prototypes]
+void request_hibernate_mode(void) {
+     ^
+rtc.c(38): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void request_hibernate_mode(void) {
+^
+static 
+rtc.c(79): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    HIB_CTL_R &= ~HIB_CTL_RTCEN; // disable RTC
+              ~~ ^~~~~~~~~~~~~~
+rtc.c(89): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
+              ~~ ^~~~~~~~~~~~~~~
+rtc.c(98): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
+              ~~ ^~~~~~~~~~~~~~~
+rtc.c(113): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    HIB_CTL_R &= ~HIB_CTL_RTCEN; // disable RTC
+              ~~ ^~~~~~~~~~~~~~
+rtc.c(119): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
+              ~~ ^~~~~~~~~~~~~~~
+rtc.c(1): warning: In file included from...
+./rtc.h(39): warning: padding size of 'DateTime' with 3 bytes to alignment boundary [-Wpadded]
+typedef struct {
+        ^
+rtc.c(142): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
+    uint32_t days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+             ^
+rtc.c(222): warning: no newline at end of file [-Wnewline-eof]
+// }
+    ^
+15 warnings generated.
+compiling rtc.c...
 linking...
-Program Size: Code=2468 RO-data=636 RW-data=0 ZI-data=656  
-".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 19 Warning(s).
+Program Size: Code=4056 RO-data=760 RW-data=0 ZI-data=656  
+".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 34 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -124,8 +195,8 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:1.0.1
       Source file:   Device/Source/system_TM4C123.c
-      Source file:   Device/Source/ARM/startup_TM4C123.s
       Include file:  Device/Include/TM4C123/TM4C123.h
+      Source file:   Device/Source/ARM/startup_TM4C123.s
 Build Time Elapsed:  00:00:01
 </pre>
 </body>
