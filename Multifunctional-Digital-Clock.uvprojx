@@ -484,6 +484,21 @@
               <FileType>1</FileType>
               <FilePath>.\rtc.c</FilePath>
             </File>
+            <File>
+              <FileName>SSD1306.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\SSD1306.h</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SSD1306.c</FilePath>
+            </File>
+            <File>
+              <FileName>horse_anim.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\horse_anim.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

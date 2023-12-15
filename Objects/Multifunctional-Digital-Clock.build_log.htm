@@ -25,7 +25,7 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\Users\SoulAndAnyaPC\Documents\Projects\TCES_430\Multifunctional-Digital-Clock\Multifunctional-Digital-Clock.uvprojx
-Project File Date:  12/14/2023
+Project File Date:  12/15/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
@@ -65,26 +65,106 @@ volatile uint32_t seconds = 0;
 ./timer.h(28): note: declare 'static' if the variable is not intended to be used outside of this translation unit
 volatile uint32_t seconds = 0;
          ^
-main.c(22): warning: no previous prototype for function 'OutCRLF' [-Wmissing-prototypes]
-void OutCRLF(void){
+main.c(17): warning: non-portable path to file '"SSD1306.h"'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+#include "ssd1306.h"
+         ^~~~~~~~~~~
+         "SSD1306.h"
+main.c(17): warning: In file included from...
+./ssd1306.h(11): warning: In file included from...
+./i2c.h(10): warning: no newline at end of file [-Wnewline-eof]
+#endif /* I2C0_H_ */
+                    ^
+main.c(17): warning: In file included from...
+./ssd1306.h(19): warning: // comments are not allowed in this language [-Wcomment]
+#define SSD1306_I2C_ADDR 0x3C // 0B011110+SA0+RW - 0x3C or 0x3D
+                              ^
+./ssd1306.h(48): warning: no newline at end of file [-Wnewline-eof]
+#endif /* SSD1306_H_ */
+                       ^
+main.c(18): warning: In file included from...
+./horse_anim.h(11): warning: no previous extern declaration for non-static variable 'horse1' [-Wmissing-variable-declarations]
+const unsigned char horse1 [] = {
+                    ^
+./horse_anim.h(11): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse1 [] = {
+      ^
+./horse_anim.h(79): warning: no previous extern declaration for non-static variable 'horse2' [-Wmissing-variable-declarations]
+const unsigned char horse2 [] = {
+                    ^
+./horse_anim.h(79): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse2 [] = {
+      ^
+./horse_anim.h(146): warning: no previous extern declaration for non-static variable 'horse3' [-Wmissing-variable-declarations]
+const unsigned char horse3 [] = {
+                    ^
+./horse_anim.h(146): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse3 [] = {
+      ^
+./horse_anim.h(213): warning: no previous extern declaration for non-static variable 'horse4' [-Wmissing-variable-declarations]
+const unsigned char horse4 [] = {
+                    ^
+./horse_anim.h(213): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse4 [] = {
+      ^
+./horse_anim.h(280): warning: no previous extern declaration for non-static variable 'horse5' [-Wmissing-variable-declarations]
+const unsigned char horse5 [] = {
+                    ^
+./horse_anim.h(280): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse5 [] = {
+      ^
+./horse_anim.h(347): warning: no previous extern declaration for non-static variable 'horse6' [-Wmissing-variable-declarations]
+const unsigned char horse6 [] = {
+                    ^
+./horse_anim.h(347): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse6 [] = {
+      ^
+./horse_anim.h(415): warning: no previous extern declaration for non-static variable 'horse7' [-Wmissing-variable-declarations]
+const unsigned char horse7 [] = {
+                    ^
+./horse_anim.h(415): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse7 [] = {
+      ^
+./horse_anim.h(483): warning: no previous extern declaration for non-static variable 'horse8' [-Wmissing-variable-declarations]
+const unsigned char horse8 [] = {
+                    ^
+./horse_anim.h(483): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse8 [] = {
+      ^
+./horse_anim.h(551): warning: no previous extern declaration for non-static variable 'horse9' [-Wmissing-variable-declarations]
+const unsigned char horse9 [] = {
+                    ^
+./horse_anim.h(551): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse9 [] = {
+      ^
+./horse_anim.h(619): warning: no previous extern declaration for non-static variable 'horse10' [-Wmissing-variable-declarations]
+const unsigned char horse10 [] = {
+                    ^
+./horse_anim.h(619): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+const unsigned char horse10 [] = {
+      ^
+./horse_anim.h(688): warning: no newline at end of file [-Wnewline-eof]
+#endif /* HORSE_ANIM_H_ */
+                          ^
+main.c(23): warning: no previous prototype for function 'OutCRLF' [-Wmissing-prototypes]
+void OutCRLF(void)
      ^
-main.c(22): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void OutCRLF(void){
+main.c(23): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void OutCRLF(void)
 ^
 static 
-main.c(27): warning: no previous extern declaration for non-static variable 'timeElapse' [-Wmissing-variable-declarations]
+main.c(32): warning: no previous extern declaration for non-static variable 'timeElapse' [-Wmissing-variable-declarations]
 uint32_t timeElapse = 0; // global variable to keep track of time elapsed in main loop cycle (1ms)
          ^
-main.c(27): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+main.c(32): note: declare 'static' if the variable is not intended to be used outside of this translation unit
 uint32_t timeElapse = 0; // global variable to keep track of time elapsed in main loop cycle (1ms)
 ^
-main.c(31): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
+main.c(36): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
   int i;
       ^
-main.c(28): warning: no previous prototype for function 'timer0A_delayMs' [-Wmissing-prototypes]
+main.c(33): warning: no previous prototype for function 'timer0A_delayMs' [-Wmissing-prototypes]
 void timer0A_delayMs(int ttime)
      ^
-main.c(28): note: declare 'static' if the function is not intended to be used outside of this translation unit
+main.c(33): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void timer0A_delayMs(int ttime)
 ^
 static 
@@ -92,26 +172,46 @@ main.c(15): warning: In file included from...
 ./rtc.h(39): warning: padding size of 'DateTime' with 3 bytes to alignment boundary [-Wpadded]
 typedef struct {
         ^
-main.c(67): warning: implicit declaration of function 'EnableInterrupts' [-Wimplicit-function-declaration]
+main.c(93): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
+  for (int j = 0; j < 4; j++)
+       ^
+main.c(93): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+main.c(102): warning: implicit declaration of function 'EnableInterrupts' [-Wimplicit-function-declaration]
   EnableInterrupts();
   ^
-main.c(52): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
-DateTime dt;
-         ^
-main.c(47): warning: unused variable 'i' [-Wunused-variable]
+main.c(57): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
+  DateTime dt;
+           ^
+main.c(52): warning: unused variable 'i' [-Wunused-variable]
   char i;
        ^
-main.c(48): warning: unused variable 'string' [-Wunused-variable]
+main.c(53): warning: unused variable 'string' [-Wunused-variable]
   char string[20]; // global to assist in debugging
        ^
-main.c(49): warning: unused variable 'n' [-Wunused-variable]
+main.c(54): warning: unused variable 'n' [-Wunused-variable]
   uint32_t n;
            ^
-19 warnings generated.
+main.c(271): warning: implicitly declaring library function 'sprintf' with type 'int (char *, const char *, ...)' [-Wimplicit-function-declaration]
+  sprintf(date_str, "%02d-%02d-%04d", current_date.month, current_date.day, current_date.year);
+  ^
+main.c(271): note: include the header <stdio.h> or explicitly provide a declaration for 'sprintf'
+main.c(289): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+main.c(270): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
+  char date_str[11]; // Format: "MM-DD-YYYY"
+       ^
+main.c(266): warning: unused variable 'current_time' [-Wunused-variable]
+  uint32_t current_time = rtc_get();
+           ^
+main.c(275): warning: 'sprintf' will always overflow; destination buffer has size 11, but format string expands to at least 12 [-Wfortify-source]
+  sprintf(time_str, "%02d:%02d:%02d %cM", current_date.hour, current_date.minute, current_date.second, current_date.am_pm);
+  ^
+41 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=3952 RO-data=760 RW-data=0 ZI-data=656  
-".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 19 Warning(s).
+Program Size: Code=13452 RO-data=13568 RW-data=0 ZI-data=1688  
+".\Objects\Multifunctional-Digital-Clock.axf" - 0 Error(s), 41 Warning(s).
 
 <h2>Software Packages used:</h2>
 
