@@ -1,3 +1,6 @@
+// Thanks to the book "Embedded Systems:Armed with ARM Cortex-M Microcontroller" by Jonathan Valvano
+// PLL.c
+
 #include "PLL.h"
 #include <stdint.h>
 

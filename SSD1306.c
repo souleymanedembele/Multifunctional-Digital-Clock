@@ -209,10 +209,11 @@ const uint16_t font_data[] = {
     0x0800, 0x1000, 0x1000, 0x1000, 0x3000, // }
     0x0000, 0x0000, 0x0000, 0x7400, 0x4C00,
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, // ~
+    0x0000, 0x000C, 0x000A, 0x000C, 0x0000, // °
 };
 
 // commands macros
-#define SSD1306_WRITE_COMMAND(command)                                         \
+#define SSD1306_WRITE_COMMAND(command) \
   I2C0_ByteWrite(SSD1306_I2C_ADDR, 0x00, (command))
 #define SSD1306_WRITE_DATA(data) I2C0_ByteWrite(SSD1306_I2C_ADDR, 0x40, (data))
 
@@ -255,7 +256,8 @@ const uint16_t font_data[] = {
 // 8 pages * 128 bytes
 char SSD1306_Buffer[SSD1306_WIDTH * SSD1306_HEIGHT / 8];
 
-typedef struct {
+typedef struct
+{
   uint8_t CurrentX;
   uint8_t CurrentY;
   uint8_t Inverted;
@@ -264,7 +266,8 @@ typedef struct {
 
 static SSD1306_t SSD1306;
 
-void ssd1306_scroll_right(uint8_t start_row, uint8_t end_row) {
+void ssd1306_scroll_right(uint8_t start_row, uint8_t end_row)
+{
   SSD1306_WRITE_COMMAND(SSD1306_RIGHT_HORIZONTAL_SCROLL);
   SSD1306_WRITE_COMMAND(0X00);
   SSD1306_WRITE_COMMAND(start_row);
@@ -275,7 +278,8 @@ void ssd1306_scroll_right(uint8_t start_row, uint8_t end_row) {
   SSD1306_WRITE_COMMAND(SSD1306_ACTIVATE_SCROLL);
 }
 // scroll left
-void ssd1306_scroll_left(uint8_t start_row, uint8_t end_row) {
+void ssd1306_scroll_left(uint8_t start_row, uint8_t end_row)
+{
   SSD1306_WRITE_COMMAND(SSD1306_LEFT_HORIZONTAL_SCROLL);
   SSD1306_WRITE_COMMAND(0X00);
   SSD1306_WRITE_COMMAND(start_row);
@@ -287,7 +291,8 @@ void ssd1306_scroll_left(uint8_t start_row, uint8_t end_row) {
 }
 
 // scroll diagonal right
-void ssd1306_scroll_diag_right(uint8_t start_row, uint8_t end_row) {
+void ssd1306_scroll_diag_right(uint8_t start_row, uint8_t end_row)
+{
   SSD1306_WRITE_COMMAND(SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL);
   SSD1306_WRITE_COMMAND(0X00);
   SSD1306_WRITE_COMMAND(start_row);
@@ -297,7 +302,8 @@ void ssd1306_scroll_diag_right(uint8_t start_row, uint8_t end_row) {
   SSD1306_WRITE_COMMAND(SSD1306_ACTIVATE_SCROLL);
 }
 // scroll diagonal left
-void ssd1306_scroll_diag_left(uint8_t start_row, uint8_t end_row) {
+void ssd1306_scroll_diag_left(uint8_t start_row, uint8_t end_row)
+{
   SSD1306_WRITE_COMMAND(SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL);
   SSD1306_WRITE_COMMAND(0X00);
   SSD1306_WRITE_COMMAND(start_row);
@@ -307,23 +313,29 @@ void ssd1306_scroll_diag_left(uint8_t start_row, uint8_t end_row) {
   SSD1306_WRITE_COMMAND(SSD1306_ACTIVATE_SCROLL);
 }
 // stop scroll
-void ssd1306_stop_scroll(void) {
+void ssd1306_stop_scroll(void)
+{
   SSD1306_WRITE_COMMAND(SSD1306_DEACTIVATE_SCROLL);
 }
 // set contrast
 // contrast - 0 to 255
 // default contrast - 0x7F
-void ssd1306_set_contrast(uint8_t contrast) {
+void ssd1306_set_contrast(uint8_t contrast)
+{
   SSD1306_WRITE_COMMAND(SSD1306_SET_CONTRAST);
   SSD1306_WRITE_COMMAND(contrast);
 }
 // set display mode
 // mode - 0 - normal, 1 - inverse
 // default mode - 0
-void ssd1306_set_display_mode(uint8_t mode) {
-  if (mode) {
+void ssd1306_set_display_mode(uint8_t mode)
+{
+  if (mode)
+  {
     SSD1306_WRITE_COMMAND(SSD1306_INVERT_DISPLAY);
-  } else {
+  }
+  else
+  {
     SSD1306_WRITE_COMMAND(SSD1306_NORMAL_DISPLAY);
   }
 }
@@ -331,11 +343,13 @@ void ssd1306_set_display_mode(uint8_t mode) {
 // ssd1306 init
 // init I2C and ssd1306
 
-uint8_t ssd1306_init(void) {
+uint8_t ssd1306_init(void)
+{
   // init I2C
   I2C0_Init();
   /*Wait a bit*/
-  for (int i = 0; i < 3000; i++) {
+  for (int i = 0; i < 3000; i++)
+  {
   }
 
   /*Run initialization commands*/
@@ -343,7 +357,7 @@ uint8_t ssd1306_init(void) {
   SSD1306_WRITE_COMMAND(0x20); /*Set Memory Addressing Mode*/
   SSD1306_WRITE_COMMAND(0x10); /*Set Page Addressing Mode*/
   SSD1306_WRITE_COMMAND(
-      0xB0); /*Set Page Start Address for Page Addressing Mode*/
+      0xB0);                   /*Set Page Start Address for Page Addressing Mode*/
   SSD1306_WRITE_COMMAND(0xC8); /*Set COM Output Scan Direction*/
 
   SSD1306_WRITE_COMMAND(0x00); /*Set low column address*/
@@ -359,7 +373,7 @@ uint8_t ssd1306_init(void) {
   SSD1306_WRITE_COMMAND(0xD3); /*Set display offset*/
   SSD1306_WRITE_COMMAND(0x00); /*Set display offset alue*/
   SSD1306_WRITE_COMMAND(
-      0xD5); /*Set display clock divide ratio/oscillator frequency*/
+      0xD5);                   /*Set display clock divide ratio/oscillator frequency*/
   SSD1306_WRITE_COMMAND(0xF0); /*Set divide ratio*/
   SSD1306_WRITE_COMMAND(0xD9); /*Set pre-charge period*/
   SSD1306_WRITE_COMMAND(0x22); /*Set pre-charge period value*/
@@ -399,18 +413,22 @@ uint8_t ssd1306_init(void) {
 // }
 //
 static void SSD_I2C0_MultiWrite(uint8_t address, uint8_t reg, char *data,
-                                uint16_t count) {
+                                uint16_t count)
+{
   I2C0_BurstWrite(address, reg, data, count);
 }
 
-void ssd1306_fill(SSD1306_COLOR_t color) {
+void ssd1306_fill(SSD1306_COLOR_t color)
+{
   memset(SSD1306_Buffer, color == SSD1306_COLOR_BLACK ? 0x00 : 0xFF,
          sizeof(SSD1306_Buffer));
 }
 
-void ssd1306_update_screen(void) {
+void ssd1306_update_screen(void)
+{
   uint8_t m;
-  for (m = 0; m < 8; m++) {
+  for (m = 0; m < 8; m++)
+  {
     SSD1306_WRITE_COMMAND(0xB0 + m);
     SSD1306_WRITE_COMMAND(0x00);
     SSD1306_WRITE_COMMAND(0x10);
@@ -424,23 +442,31 @@ void ssd1306_update_screen(void) {
 // x - x coordinate
 // y - y coordinate
 // color - color
-void ssd1306_draw_pixel(uint8_t x, uint8_t y, SSD1306_COLOR_t color) {
-  if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) {
+void ssd1306_draw_pixel(uint8_t x, uint8_t y, SSD1306_COLOR_t color)
+{
+  if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT)
+  {
     // Error
     return;
   }
 
   // Check if pixel should be inverted
-  if (SSD1306.Inverted) { // Inverted mode
+  if (SSD1306.Inverted)
+  { // Inverted mode
     color = (SSD1306_COLOR_t)!color;
-  } else {
+  }
+  else
+  {
     color = (SSD1306_COLOR_t)color;
   } // Normal mode = do nothing
     // Draw in currently selected color
-  if (color == SSD1306_COLOR_WHITE) {
+  if (color == SSD1306_COLOR_WHITE)
+  {
     // Set color to white
     SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
-  } else {
+  }
+  else
+  {
     // Set color to black
     SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
   }
@@ -449,7 +475,8 @@ void ssd1306_draw_pixel(uint8_t x, uint8_t y, SSD1306_COLOR_t color) {
 // gotoxy
 // x - x coordinate
 // y - y coordinate
-void ssd1306_gotoxy(uint8_t x, uint8_t y) {
+void ssd1306_gotoxy(uint8_t x, uint8_t y)
+{
   // Set write pointers
   SSD1306.CurrentX = x;
   SSD1306.CurrentY = y;
@@ -460,22 +487,29 @@ void ssd1306_gotoxy(uint8_t x, uint8_t y) {
 // Font - font used
 // color - color
 // return - width of character written
-char ssd1306_put_ch(char ch, SSD1306_COLOR_t color) {
+char ssd1306_put_ch(char ch, SSD1306_COLOR_t color)
+{
   uint32_t i, b, j;
   // check remaining space on current line
   if (SSD1306_WIDTH <= (SSD1306.CurrentX + FONT_WIDTH) ||
-      SSD1306_HEIGHT <= (SSD1306.CurrentY + FONT_HEIGHT)) {
+      SSD1306_HEIGHT <= (SSD1306.CurrentY + FONT_HEIGHT))
+  {
     // Not enough space on current line
     return 0;
   }
   // go through font
-  for (i = 0; i < FONT_HEIGHT; i++) {
+  for (i = 0; i < FONT_HEIGHT; i++)
+  {
     b = font_data[(ch - 32) * FONT_HEIGHT + i];
-    for (j = 0; j < FONT_WIDTH; j++) {
-      if ((b << j) & 0x8000) {
+    for (j = 0; j < FONT_WIDTH; j++)
+    {
+      if ((b << j) & 0x8000)
+      {
         ssd1306_draw_pixel(SSD1306.CurrentX + j, (SSD1306.CurrentY + i),
                            (SSD1306_COLOR_t)color);
-      } else {
+      }
+      else
+      {
         ssd1306_draw_pixel(SSD1306.CurrentX + j, (SSD1306.CurrentY + i),
                            (SSD1306_COLOR_t)!color);
       }
@@ -487,10 +521,13 @@ char ssd1306_put_ch(char ch, SSD1306_COLOR_t color) {
   return ch;
 }
 
-char ssd1306_put_str(char *str, SSD1306_COLOR_t color) {
+char ssd1306_put_str(char *str, SSD1306_COLOR_t color)
+{
   // Write until null-byte
-  while (*str) {
-    if (ssd1306_put_ch(*str, color) != *str) {
+  while (*str)
+  {
+    if (ssd1306_put_ch(*str, color) != *str)
+    {
       // Char could not be written
       return *str;
     }
@@ -508,16 +545,20 @@ char ssd1306_put_str(char *str, SSD1306_COLOR_t color) {
 // color - color
 // return - width of character written
 void ssd1306_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
-                       SSD1306_COLOR_t color) {
+                       SSD1306_COLOR_t color)
+{
   uint16_t dx, dy, sx, sy, err, e2, i, tmp;
   // Check for overflow
-  if (x0 >= SSD1306_WIDTH) {
+  if (x0 >= SSD1306_WIDTH)
+  {
     x0 = SSD1306_WIDTH - 1;
   }
-  if (x1 >= SSD1306_WIDTH) {
+  if (x1 >= SSD1306_WIDTH)
+  {
     x1 = SSD1306_WIDTH - 1;
   }
-  if (y0 >= SSD1306_HEIGHT) {
+  if (y0 >= SSD1306_HEIGHT)
+  {
     y0 = SSD1306_HEIGHT - 1;
   }
 
@@ -528,53 +569,68 @@ void ssd1306_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
   sx = (x0 < x1) ? 1 : -1;
   sy = (y0 < y1) ? 1 : -1;
   err = ((dx > dy) ? dx : -dy) / 2;
-  if (dx == 0) {
+  if (dx == 0)
+  {
     // vertical line
-    if (y1 < y0) {
+    if (y1 < y0)
+    {
       tmp = y0;
       y0 = y1;
       y1 = tmp;
     }
-    if (x1 < x0) {
+    if (x1 < x0)
+    {
       tmp = x0;
       x0 = x1;
       x1 = tmp;
     }
-    for (i = y0; i <= y1; i++) {
+    for (i = y0; i <= y1; i++)
+    {
       ssd1306_draw_pixel(x0, i, color);
     }
-  } else if (dy == 0) {
+  }
+  else if (dy == 0)
+  {
     // horizontal line
-    if (y1 < y0) {
+    if (y1 < y0)
+    {
       tmp = y0;
       y0 = y1;
       y1 = tmp;
     }
-    if (x1 < x0) {
+    if (x1 < x0)
+    {
       tmp = x0;
       x0 = x1;
       x1 = tmp;
     }
-    for (i = x0; i <= x1; i++) {
+    for (i = x0; i <= x1; i++)
+    {
       ssd1306_draw_pixel(i, y0, color);
     }
-  } else {
+  }
+  else
+  {
     // other line
-    while (1) {
+    while (1)
+    {
       ssd1306_draw_pixel(x0, y0, color);
       /* If the end point has been reached, break out of the loop */
-      if (x0 == x1 && y0 == y1) {
+      if (x0 == x1 && y0 == y1)
+      {
         break;
       }
       /* Calculate the next error value and update the x and y coordinates
        * accordingly */
 
       e2 = err;
-      if (e2 > -dx) {
+      if (e2 > -dx)
+      {
         err -= dy;
         x0 += sx;
       }
-      if (e2 < dy) {
+      if (e2 < dy)
+      {
         err += dx;
         y0 += sy;
       }
@@ -582,35 +638,42 @@ void ssd1306_draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1,
   }
 }
 
-void ssd1306_clear(void) {
+void ssd1306_clear(void)
+{
   ssd1306_fill(SSD1306_COLOR_BLACK);
   // ssd1306_update_screen();
 }
 
 void ssd1306_draw_bmp(int16_t x, int16_t y, const unsigned char *bitmap,
-                      int16_t w, int16_t h, uint16_t color) {
+                      int16_t w, int16_t h, uint16_t color)
+{
   uint8_t byte = 0;
 
   // int16_t byteWidth = (w + 7) / 8; // Bitmap scanline pad = whole byte
   int16_t byteWidth = (w + 7) / 8;
 
   // Bitmap scanline pad = whole byte
-  for (int16_t j = 0; j < h; j++, y++) {
+  for (int16_t j = 0; j < h; j++, y++)
+  {
     // iterate through the width of the image
-    for (int16_t i = 0; i < w; i++) {
+    for (int16_t i = 0; i < w; i++)
+    {
       // check if the current bit is not the first in the byte
-      if (i & 7) {
+      if (i & 7)
+      {
         // shift the byte left by 1
         byte <<= 1;
       }
 
-      else {
+      else
+      {
         // load the next byte of image data
         byte = (*(const unsigned char *)(&bitmap[j * byteWidth + i / 8]));
       }
 
       // check if the current bit is set
-      if (byte & 0x80) {
+      if (byte & 0x80)
+      {
 
         // draw the pixel at the current x and y position with the specified
         // color

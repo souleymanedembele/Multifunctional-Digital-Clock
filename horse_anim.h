@@ -1,10 +1,3 @@
-/*
- * horse_anim.h
- *
- *  Created on: 17-Jun-2019
- *      Author: poe
- */
-
 #ifndef HORSE_ANIM_H_
 #define HORSE_ANIM_H_
 

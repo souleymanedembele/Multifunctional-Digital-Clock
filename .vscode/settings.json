@@ -11,6 +11,8 @@
     "time.h": "c",
     "timer.h": "c",
     "ssd1306.h": "c",
-    "horse_anim.h": "c"
+    "horse_anim.h": "c",
+    "settings.h": "c",
+    "temp.h": "c"
   }
 }

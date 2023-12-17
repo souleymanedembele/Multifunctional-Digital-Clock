@@ -499,6 +499,21 @@
               <FileType>5</FileType>
               <FilePath>.\horse_anim.h</FilePath>
             </File>
+            <File>
+              <FileName>settings.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\settings.h</FilePath>
+            </File>
+            <File>
+              <FileName>temp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\temp.h</FilePath>
+            </File>
+            <File>
+              <FileName>alarm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\alarm.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

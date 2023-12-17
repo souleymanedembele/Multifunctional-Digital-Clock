@@ -41,10 +41,10 @@ void request_hibernate_mode(void) {
     } // wait for RTC write to complete
 }
 
-void HIBERNATE_Handler(void) {
-    HIB_IC_R |= HIB_IC_RTCALT0; // clear RTC interrupt flag
-   // rtc_interrupt_fired = 1;
-}
+// void HIBERNATE_Handler(void) {
+//     HIB_IC_R |= HIB_IC_RTCALT0; // clear RTC interrupt flag
+//    // rtc_interrupt_fired = 1;
+// }
 
 // initialize real time clock on tm4c123gh6pm
 void rtc_init(void){
@@ -98,6 +98,24 @@ void rtc_set(uint32_t time){
     HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
     request_hibernate_mode();
 }
+
+void rtc_set_alarm(uint32_t futureTime) {
+    HIB_CTL_R |= HIB_CTL_RTCWEN; // Enable RTC write
+    hibernate_write_complete();
+    HIB_RTCM0_R = futureTime; // Set RTC match value to future time
+    hibernate_write_complete();
+    HIB_CTL_R &= ~HIB_CTL_RTCWEN; // Disable RTC write
+
+    // Enable RTC match interrupt
+    // HIB_IM_R |= HIB_IM_RTCALT0;
+
+    // Set interrupt priority 0
+    // NVIC_PRI5_R = (NVIC_PRI5_R & 0xFFFF00FF) | (0 << 13);
+
+    // Enable interrupt in NVIC
+    // NVIC_EN1_R |= 0x00000040;
+}
+
 
 uint32_t rtc_get(void){
     return HIB_RTCC_R; // return the current RTC value
