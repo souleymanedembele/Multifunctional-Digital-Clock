@@ -13,6 +13,8 @@
     "ssd1306.h": "c",
     "horse_anim.h": "c",
     "settings.h": "c",
-    "temp.h": "c"
+    "temp.h": "c",
+    "alarm.h": "c",
+    "media.h": "c"
   }
 }

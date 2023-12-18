@@ -1,10 +1,10 @@
-/*
- * SSD1306.h
- *
- *  Created on: Jan 27, 2023
- *      Author: soul
+/**
+ * File              : SSD1306.h
+ * Author            : Souleymane Dembele <sdembele@uw.edu>
+ * Date              : 01.27.2023
+ * Last Modified Date: 12.16.2023
+ * Last Modified By  : Souleymane Dembele <sdembele@uw.edu>
  */
-
 #ifndef SSD1306_H_
 #define SSD1306_H_
 

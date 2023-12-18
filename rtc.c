@@ -48,27 +48,6 @@ void request_hibernate_mode(void) {
 
 // initialize real time clock on tm4c123gh6pm
 void rtc_init(void){
-  //   SYSCTL_RCGCHIB_R |= SYSCTL_RCGCHIB_R0; // enable clock to HIB module
-  //  // wait for HIB module to be ready
-  //   while ((SYSCTL_PRHIB_R & SYSCTL_PRHIB_R0) == 0) {
-  //   }
-   
-  //   //HIB_CTL_R &= ~HIB_CTL_CLK32EN; // disable 32kHz clock source
-  //   HIB_CTL_R |= HIB_CTL_CLK32EN; // enable 32kHz clock source
-  //   HIB_CTL_R |= HIB_CTL_OSCDRV; // select 12pF internal load capacitance
-  //   HIB_CTL_R &= ~HIB_CTL_RTCEN; // disable RTC
-  //   HIB_CTL_R |= HIB_CTL_RTCEN; // enable RTC
-  //   HIB_IC_R |= HIB_IC_RTCALT0; // clear RTC interrupt flag
-  //   HIB_IM_R |= HIB_IM_RTCALT0; // enable RTC interrupt
-  //   NVIC_EN1_R |= 1 << (INT_HIBERNATE-16-32); // enable interrupt 43 in NVIC
-  //   HIB_CTL_R |= HIB_CTL_RTCWEN; // enable RTC write
-  //   hibernate_write_complete();
-  //   HIB_RTCLD_R = 0; // set RTC load value to 0
-  //   hibernate_write_complete();
-  //   HIB_CTL_R &= ~HIB_CTL_RTCWEN; // disable RTC write
-  //   // configure_rtc_wakeup(0);
-  //   // configure_rtc_match(0, 5);
-  //   // enter_hibernate_mode();
   SYSCTL_RCGCHIB_R |= SYSCTL_RCGCHIB_R0; // enable clock to HIB module
     // wait for HIB module to be ready
     while ((SYSCTL_PRHIB_R & SYSCTL_PRHIB_R0) == 0) {
