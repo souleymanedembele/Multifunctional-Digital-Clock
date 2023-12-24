@@ -19,6 +19,7 @@
 #include "temp.h"
 #include "timer.h"
 #include "uart.h"
+#include  "fpu.h"
 #include <stdint.h>
 
 uint8_t main_nav_select = 2; // settings screen is the default selection
@@ -59,73 +60,81 @@ int main(void) {
   char i;
   char string[20]; // global to assist in debugging
   uint32_t n;
-
+  fpu_enable();
   PLL_Init(); // set system clock to 50 MHz
 
-  // get rtc time and check if it greater that dt
-  if (rtc_get() > date_to_seconds(dt)) {
-    setup_mode = 1;
-  }
+  // // get rtc time and check if it greater that dt
+  // if (rtc_get() > date_to_seconds(dt)) {
+  //   setup_mode = 1;
+  // }
   // RTC is setup in setup mode
-  ADC_Init();
+  // ADC_Init();
 
-  GPIOPortFCE_Init();
+  // GPIOPortFCE_Init();
   UART_Init(); // initialize UART
-               // initialize the display
-  ssd1306_init();
+  //              // initialize the display
+  // ssd1306_init();
 
-  /*Update screen*/
-  for (int j = 0; j < 2; j++) {
-    run_horse_animation();
-  }
+  // /*Update screen*/
+  // for (int j = 0; j < 2; j++) {
+  //   run_horse_animation();
+  // }
 
-  WelcomeScreen();
+  // WelcomeScreen();
 
-  // timer0_InIt(); // initialize the timer
+  // // timer0_InIt(); // initialize the timer
   EnableInterrupts();
 
-  dfplayer_init();
+  // dfplayer_init();
 
   while (1) {
-    if (setup_mode == 0) {
-      while (setup_mode == 0) {
-        setting_screen(current_time);
-      }
-    }
-    ADC0_PSSI_R |= 0x08; /* start a conversion sequence 3 */
-    // ADC1_PSSI_R = 0x08;  // Initiate SS3
-    ssd1306_clear();
-    current_time = rtc_get();
+    float temp = 0;
+    temp = 1.298/2;
+    char string_temp[20]; // global to assist in debugging
 
-    while ((ADC0_RIS_R & 0x08) == 0) {
-      if ((current_time) >= alarm_time) {
-        if (alarm_time != 0) {
-          alarm_time = 0;
-          dfplayer_play_first_track();
-          // OutCRLF();
-          // UART_OutString("Alarm on");
-          // OutCRLF();
-        }
-      }
-      // OutCRLF();
-      // display_rtc_time();
-      run_menu_nav_bar(main_nav_select);
-    }
-    /* wait for conversion to complete */
-    temperature = ((ADC0_SSFIFO3_R * 190 / 2) /
-                   4096); // (ADC0_SSFIFO3_R-500)/10 ; // ((ADC0_SSFIFO3_R *
-                          // 190/2)/4096); //; // 190 = range of temp -40 to
-    if ((current_time) >= alarm_time) {
-      if (alarm_time != 0) {
-        alarm_time = 0;
-        dfplayer_play_first_track();
-        // OutCRLF();
-        // UART_OutString("Alarm on");
-        // OutCRLF();
-      }
-    }
-    ADC0_ISC_R = 0x08; /* clear completion flag */
-    run_menu_nav_bar(main_nav_select);
+    sprintf(string_temp, "Hello World %f\n", temp);
+    UART_OutString(string_temp);
+    OutCRLF();
+
+    // if (setup_mode == 0) {
+    //   while (setup_mode == 0) {
+    //     setting_screen(current_time);
+    //   }
+    // }
+    // ADC0_PSSI_R |= 0x08; /* start a conversion sequence 3 */
+    // // ADC1_PSSI_R = 0x08;  // Initiate SS3
+    // ssd1306_clear();
+    // current_time = rtc_get();
+
+    // while ((ADC0_RIS_R & 0x08) == 0) {
+    //   if ((current_time) >= alarm_time) {
+    //     if (alarm_time != 0) {
+    //       alarm_time = 0;
+    //       dfplayer_play_first_track();
+    //       // OutCRLF();
+    //       // UART_OutString("Alarm on");
+    //       // OutCRLF();
+    //     }
+    //   }
+    //   // OutCRLF();
+    //   // display_rtc_time();
+    //   run_menu_nav_bar(main_nav_select);
+    // }
+    // /* wait for conversion to complete */
+    // temperature = ((ADC0_SSFIFO3_R * 190 / 2) /
+    //                4096); // (ADC0_SSFIFO3_R-500)/10 ; // ((ADC0_SSFIFO3_R *
+    //                       // 190/2)/4096); //; // 190 = range of temp -40 to
+    // if ((current_time) >= alarm_time) {
+    //   if (alarm_time != 0) {
+    //     alarm_time = 0;
+    //     dfplayer_play_first_track();
+    //     // OutCRLF();
+    //     // UART_OutString("Alarm on");
+    //     // OutCRLF();
+    //   }
+    // }
+    // ADC0_ISC_R = 0x08; /* clear completion flag */
+    // run_menu_nav_bar(main_nav_select);
     //  WaitForInterrupt();
   }
 }
