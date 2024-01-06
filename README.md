@@ -5,7 +5,7 @@ This repository contains the design and implementation details of a multifunctio
 
 The goal of the TimeSync project was to design and implement a multifunctional digital clock using the TM4C123GH6PM microcontroller. This clock includes a timer, display, temperature sensor, and an alarm feature that triggers an mp3 module using UART. Users interact through a modern OLED display and 3 push buttons for functionalities such as switching between the clock and temperature display.
 
-![TimeSync Project Demo](image-link-here)  
+![TimeSync Project Demo](./Docs/working_demo.gif)  
 *Figure: Represents a demo of the working project.*
 
 ### Full Demo Videos
