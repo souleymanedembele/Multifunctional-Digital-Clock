@@ -15,6 +15,7 @@
     "settings.h": "c",
     "temp.h": "c",
     "alarm.h": "c",
-    "media.h": "c"
+    "media.h": "c",
+    "adc.h": "c"
   }
 }
